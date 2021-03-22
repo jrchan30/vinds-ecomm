@@ -1,8 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
-const MenuItem = ({ title, imageUrl }) => {
+const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => {
   return (
-    <div>
+    <div onClick={() => history.push(`${match.url}${linkUrl}`)}>
       <img
         src={imageUrl}
         alt={`${title} section`}
@@ -16,4 +17,4 @@ const MenuItem = ({ title, imageUrl }) => {
   );
 };
 
-export default MenuItem;
+export default withRouter(MenuItem);

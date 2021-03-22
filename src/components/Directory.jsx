@@ -8,31 +8,31 @@ const Directory = (props) => {
       title: "Liquids",
       imageUrl: "https://i.ibb.co/Lr8hFWT/liquids.jpg",
       id: 1,
+      linkUrl: "liquids",
     },
     {
       title: "Mods",
       imageUrl: "https://i.ibb.co/Vx6x7Z9/mods.jpg",
       id: 2,
+      linkUrl: "",
     },
     {
       title: "RDAs",
       imageUrl: "https://i.ibb.co/QXMcjRZ/rdas.jpg",
       id: 3,
+      linkUrl: "",
     },
     {
-      title: "Batteries and chargers",
+      title: "Batteries & chargers",
       imageUrl: "https://i.ibb.co/Jnrkt3N/batteries.jpg",
       id: 4,
+      linkUrl: "",
     },
   ]);
 
   const renderList = () => {
-    return sections.map(({ title, imageUrl, id }) => {
-      return (
-        <div>
-          <MenuItem key={id} title={title} imageUrl={imageUrl} />
-        </div>
-      );
+    return sections.map(({ id, ...otherSectionProps }) => {
+      return <MenuItem key={id} {...otherSectionProps} />;
     });
   };
 
