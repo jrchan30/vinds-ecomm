@@ -1,18 +1,18 @@
-// import Header from "./components/Header";
-import Directory from "./components/Directory";
 import Header from "./components/layouts/Header";
-// import Homepage from "./Homepage";
 import "./index.css";
-import Homepage from "./pages/Homepage";
-import TestComponent from "./components/TestComponent";
+import HomePage from "./pages/homepage/HomePage";
 import { Route } from "react-router-dom";
+import LiquidsPage from "./pages/liquids/LiquidsPage";
+import ShopPage from "./pages/shop/ShopPage";
 
 function App() {
   return (
     <div>
       <Header />
       <div className="container mx-auto h-full px-20">
-        <Route exact path="/" component={Homepage} />
+        <Route exact path="/" component={HomePage} />
+        <Route path="/liquids" component={LiquidsPage} />
+        <Route path="/shop" component={ShopPage} />
       </div>
     </div>
   );

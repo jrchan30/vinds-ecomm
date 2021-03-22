@@ -11,7 +11,7 @@ const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => {
         className="rounded-lg bg-contain"
       ></img>
       <div className="content">
-        <div className="text-2xl font-semibold">{title}</div>
+        <h3 className="text-2xl font-semibold text-gray-800">{title}</h3>
       </div>
     </div>
   );

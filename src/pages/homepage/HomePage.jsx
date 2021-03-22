@@ -1,7 +1,7 @@
 import React from "react";
-import Directory from "../components/Directory";
+import Directory from "../../components/Directory";
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <div className="mt-10">
       <Directory />
@@ -9,4 +9,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;

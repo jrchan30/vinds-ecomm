@@ -38,7 +38,7 @@ const Directory = (props) => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold pb-4">Directories</h2>
+      <h2 className="text-3xl font-bold pb-4 text-gray-800">Directories</h2>
       <div className="grid grid-cols-4 gap-4 auto-cols-min">{renderList()}</div>
     </div>
   );

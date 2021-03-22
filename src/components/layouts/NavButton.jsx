@@ -2,21 +2,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 const NavButton = ({ text, link, button, color }) => {
   return (
-    <button
+    <Link
+      to={link}
       className={classnames(
         `group transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 rounded-full  font-medium text-lg ${color}`,
         {
-          "bg-blue-400 text-white  hover:bg-blue-500 px-3 py-1": button,
+          "bg-red-600 text-white  hover:bg-red-100 hover:text-black px-3 py-2": button,
           "p-2": !button,
         }
       )}
       aria-expanded="false"
     >
       <a href={link}>{text}</a>
-    </button>
+    </Link>
   );
 };
 
