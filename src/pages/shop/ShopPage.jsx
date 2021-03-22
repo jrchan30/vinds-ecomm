@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CollectionPreview from "../../components/CollectionPreview";
 
 import SHOP_DATA from "./ShopPage.data";
 
 function ShopPage() {
-  const [collections, setCollections] = useState(SHOP_DATA);
+  const [collections] = useState(SHOP_DATA);
 
   return (
     <div className="mt-10">

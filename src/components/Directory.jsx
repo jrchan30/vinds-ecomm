@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import MenuItem from "./MenuItem";
 
 const Directory = (props) => {
-  const [sections, setSection] = useState([
+  const [sections] = useState([
     {
       title: "Liquids",
       imageUrl: "https://i.ibb.co/Lr8hFWT/liquids.jpg",
@@ -43,7 +42,5 @@ const Directory = (props) => {
     </div>
   );
 };
-
-Directory.propTypes = {};
 
 export default Directory;
