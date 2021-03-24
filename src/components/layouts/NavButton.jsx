@@ -9,15 +9,15 @@ const NavButton = ({ text, link, button, color }) => {
     <Link
       to={link}
       className={classnames(
-        `group transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 rounded-full  font-medium text-lg ${color}`,
+        `group transition duration-400 ease-in-out transform hover:-translate-y-1 hover:scale-110 rounded-full  font-medium text-lg ${color}`,
         {
-          "bg-red-600 text-white  hover:bg-red-100 hover:text-black px-3 py-2": button,
+          "bg-red-600 text-white  hover:bg-white hover:text-black px-3 py-2": button,
           "p-2": !button,
         }
       )}
       aria-expanded="false"
     >
-      <a href={link}>{text}</a>
+      {text}
     </Link>
   );
 };

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const CollectionItem = ({ id, name, price, imageUrl }) => {
   return (
-    <div className="collection-item">
+    <div>
       <div>
         <img src={imageUrl} alt="liquid" className="rounded-lg" />
         <div className="flex-none lg:flex justify-between">
