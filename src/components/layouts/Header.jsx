@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import NavButton from "./NavButton";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebaseUtils";
+import { connect } from "react-redux";
+
+import NavButton from "./NavButton";
 
 const Header = ({ currentUser }) => {
   const [color, setColor] = useState("text-white");
@@ -69,4 +71,8 @@ const Header = ({ currentUser }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
