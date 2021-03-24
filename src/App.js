@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import LiquidsPage from "./pages/liquids/LiquidsPage";
 import ShopPage from "./pages/shop/ShopPage";
 import SignInSignUp from "./pages/sign-in-and-sign-up/SignInSignUp";
-import { auth } from "./firebase/firebaseUtils";
+import { auth, createUserProfileDocument } from "./firebase/firebaseUtils";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -14,14 +14,28 @@ function App() {
   // let unsubscribeFromAuth = null;
 
   useEffect(() => {
-    let unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      console.log(user);
+    let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
     });
     return () => {
       unsubscribeFromAuth();
     };
   }, []);
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <div>

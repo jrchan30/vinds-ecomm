@@ -14,7 +14,6 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
     setState({ email: "", password: "" });
   };
 
@@ -44,6 +43,7 @@ function SignIn() {
           handleChange={handleChange}
           placeholder="jrussellchan2000@gmail.com"
           label="Email"
+          autoComplete="email"
         />
         <FormInput
           type="password"
@@ -52,6 +52,7 @@ function SignIn() {
           required
           handleChange={handleChange}
           label="Password"
+          autoComplete="current-password"
         />
         <div className="mt-16 grid grid-cols-2 gap-16">
           <CustomButton type="submit">Sign in</CustomButton>
