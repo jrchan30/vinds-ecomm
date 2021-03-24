@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./index.css";
 import { connect } from "react-redux";
 
@@ -41,15 +41,25 @@ const App = (props) => {
           <Route exact path="/" component={HomePage} />
           <Route path="/liquids" component={LiquidsPage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignInSignUp} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
+            }
+          />
         </Switch>
       </div>
     </div>
   );
 };
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
