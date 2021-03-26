@@ -8,8 +8,8 @@ const CollectionPreview = ({ title, items }) => {
       <div className="grid grid-cols-4 gap-6 mb-10">
         {items
           .filter((item, idx) => idx < 4)
-          .map(({ id, ...itemProps }) => (
-            <CollectionItem key={id} {...itemProps} />
+          .map((item) => (
+            <CollectionItem key={item.id} item={item} type={title} />
           ))}
       </div>
     </div>

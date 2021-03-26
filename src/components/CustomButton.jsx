@@ -13,8 +13,8 @@ CustomButton.defaultProps = {
   stylings: "text-white font-medium bg-red-600",
 };
 
-CustomButton.propTypes = {
-  children: PropTypes.string.isRequired,
-};
+// CustomButton.propTypes = {
+//   children: PropTypes.isRequired,
+// };
 
 export default CustomButton;

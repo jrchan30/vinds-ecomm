@@ -75,7 +75,7 @@ const Header = ({ currentUser, hidden }) => {
             <CartIcon
               styles={window.pageYOffset < 90 ? "text-white" : "text-gray-800"}
             />
-            {hidden && <CartDropdown />}
+            {!hidden && <CartDropdown />}
           </div>
         </div>
       </nav>
