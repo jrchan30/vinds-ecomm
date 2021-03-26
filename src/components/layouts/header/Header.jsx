@@ -43,7 +43,7 @@ const Header = ({ currentUser, hidden }) => {
   return (
     <header
       className={classnames(
-        "sticky flex top-0 w-full h-20 transition duration-1000 ease-in-out items-center",
+        "sticky flex top-0 w-full h-20 transition duration-1000 ease-in-out items-center z-50",
         {
           "bg-gray-800": window.pageYOffset < 90,
           "bg-white": window.pageYOffset > 90,
