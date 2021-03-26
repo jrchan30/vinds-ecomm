@@ -1,11 +1,14 @@
 import React from "react";
 import Directory from "../../components/Directory";
+import PageWrapperAnimate from "../../components/layouts/PageWrapperAnimate";
 
 const HomePage = () => {
   return (
-    <div className="mt-10">
-      <Directory />
-    </div>
+    <PageWrapperAnimate>
+      <div className="mt-10">
+        <Directory />
+      </div>
+    </PageWrapperAnimate>
   );
 };
 

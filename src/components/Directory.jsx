@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MenuItem from "./MenuItem";
+import { motion, useDragControls } from "framer-motion";
 
 const Directory = (props) => {
   const [sections] = useState([
@@ -31,14 +32,29 @@ const Directory = (props) => {
 
   const renderList = () => {
     return sections.map(({ id, ...otherSectionProps }) => {
-      return <MenuItem key={id} {...otherSectionProps} />;
+      return (
+        <div key={id} style={{ minWidth: "332px" }}>
+          <MenuItem {...otherSectionProps} />
+        </div>
+      );
     });
   };
-
   return (
-    <div>
+    <div className="relative">
       <h2 className="text-3xl font-bold pb-4 text-gray-800">Directories</h2>
-      <div className="grid grid-cols-4 gap-4 auto-cols-min">{renderList()}</div>
+      <br />
+      <div className="absolute w-full overflow-hidden">
+        <motion.div
+          className="flex gap-4"
+          drag="x"
+          dragConstraints={{
+            left: -895,
+            right: 0,
+          }}
+        >
+          {renderList()}
+        </motion.div>
+      </div>
     </div>
   );
 };

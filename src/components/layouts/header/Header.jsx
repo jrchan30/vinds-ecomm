@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-import { auth } from "../../firebase/firebaseUtils";
+import { auth } from "../../../firebase/firebaseUtils";
 import { connect } from "react-redux";
 
 import NavButton from "./NavButton";
+import CartIcon from "./CartIcon";
+import VindsLogo from "./VindsLogo";
+import CartDropdown from "./CartDropdown";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   const [color, setColor] = useState("text-white");
   const handleScroll = () => {
     window.pageYOffset < 90
@@ -40,21 +43,24 @@ const Header = ({ currentUser }) => {
   return (
     <header
       className={classnames(
-        "sticky flex top-0 w-full h-20 transition duration-700 ease-in-out items-center",
+        "sticky flex top-0 w-full h-20 transition duration-1000 ease-in-out items-center",
         {
           "bg-gray-800": window.pageYOffset < 90,
           "bg-white": window.pageYOffset > 90,
         }
       )}
     >
-      <nav className="container mx-auto px-20 flex justify-between items-center ">
-        <div>
-          <Link to="/">
+      <nav className="container mx-auto px-20 flex justify-between items-center">
+        <div className="h-10">
+          {/* <Link to="/">
             <img
               className="h-14 md:h-10 fill-current text-red-600"
               src="https://see.fontimg.com/api/renderfont4/4VwY/eyJyIjoiZnMiLCJoIjoxMTksInciOjIyNTAsImZzIjo1MywiZmdjIjoiI0YzMzczNyIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/VklORFM/youth-touch-demo-regular.png"
               alt=""
             />
+          </Link> */}
+          <Link to="/">
+            <VindsLogo />
           </Link>
         </div>
         <div className="flex space-x-3 md:space-x-8">
@@ -62,17 +68,24 @@ const Header = ({ currentUser }) => {
           <NavButton text="Contact" link="#" color={color} />
           <NavButton text="Blogs" link="#" color={color} />
         </div>
-        <div className="block">
+        <div className="flex items-center space-x-5">
           {/* <NavButton text="Sign in" link="/signin" button={true} /> */}
           {renderButton()}
+          <div className="relative">
+            <CartIcon
+              styles={window.pageYOffset < 90 ? "text-white" : "text-gray-800"}
+            />
+            {hidden && <CartDropdown />}
+          </div>
         </div>
       </nav>
     </header>
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
