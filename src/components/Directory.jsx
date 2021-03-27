@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MenuItem from "./MenuItem";
-import { motion, useDragControls } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Directory = (props) => {
   const [sections] = useState([

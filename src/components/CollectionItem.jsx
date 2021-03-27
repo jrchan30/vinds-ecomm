@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux";
 
-import priceFormat from "../utils/priceFormat";
+import { priceFormatHuman } from "../utils/priceFormat";
 import CustomButton from "./CustomButton";
 import { addItem } from "../redux/cart/cartActions";
 
@@ -61,7 +61,7 @@ const CollectionItem = ({ item, type, addItem }) => {
       </div>
       <div className="flex-none lg:flex justify-between">
         <p className="truncate mr-5 block">{name}</p>
-        <span className="min-w-max block">{priceFormat(price)}</span>
+        <span className="min-w-max block">{priceFormatHuman(price)}</span>
       </div>
     </Link>
   );

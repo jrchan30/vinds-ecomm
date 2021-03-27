@@ -1,18 +1,12 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 import { toggleCartHidden } from "../../../redux/cart/cartActions";
-import { selectCartItemsCount } from "../../../redux/cart/cartSelectors";
+import { selectCartItemsCount } from "../../../redux/cart/cartSelector";
 
 const CartIcon = (props) => {
-  console.log(props);
-  // const cartItems = useMemo(() => {
-  //   return props.cartItems.reduce(
-  //     (accQty, cartItem) => accQty + cartItem.quantity,
-  //     0
-  //   );
-  // }, [props.cartItems]);
-
   return (
     <motion.div
       className="relative cursor-pointer"
@@ -54,8 +48,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleCartHidden: () => dispatch(toggleCartHidden()),
 });
 
-const mapStateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state),
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
