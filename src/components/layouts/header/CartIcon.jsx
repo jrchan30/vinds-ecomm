@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { connect } from "react-redux";
 import { toggleCartHidden } from "../../../redux/cart/cartActions";
+import { selectCartItemsCount } from "../../../redux/cart/cartSelectors";
 
 const CartIcon = (props) => {
+  console.log(props);
+  // const cartItems = useMemo(() => {
+  //   return props.cartItems.reduce(
+  //     (accQty, cartItem) => accQty + cartItem.quantity,
+  //     0
+  //   );
+  // }, [props.cartItems]);
+
   return (
     <motion.div
       className="relative cursor-pointer"
@@ -24,8 +33,8 @@ const CartIcon = (props) => {
         <path d="m150 405c0 24.8125 20.1875 45 45 45s45-20.1875 45-45-20.1875-45-45-45-45 20.1875-45 45zm45-15c8.269531 0 15 6.730469 15 15s-6.730469 15-15 15-15-6.730469-15-15 6.730469-15 15-15zm0 0" />
         <path d="m362 405c0 24.8125 20.1875 45 45 45s45-20.1875 45-45-20.1875-45-45-45-45 20.1875-45 45zm45-15c8.269531 0 15 6.730469 15 15s-6.730469 15-15 15-15-6.730469-15-15 6.730469-15 15-15zm0 0" />
       </svg>
-      <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 text-xs font-semibold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-        99
+      <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 px-2 text-xs font-semibold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+        {props.itemCount}
       </span>
       <div className="hidden">
         Icons made by{" "}
@@ -45,4 +54,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleCartHidden: () => dispatch(toggleCartHidden()),
 });
 
-export default connect(null, mapDispatchToProps)(CartIcon);
+const mapStateToProps = (state) => ({
+  itemCount: selectCartItemsCount(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
