@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import CollectionPreview from "../../components/CollectionPreview";
+import React from "react";
+import { Route } from "react-router-dom";
+
+import CollectionsOverview from "../../components/CollectionsOverview";
 import PageWrapperAnimate from "../../components/layouts/PageWrapperAnimate";
+import CollectionPage from "../collection/CollectionPage";
 
-import SHOP_DATA from "./ShopPage.data";
-
-function ShopPage() {
-  const [collections] = useState(SHOP_DATA);
-
+function ShopPage({ match }) {
   return (
     <PageWrapperAnimate>
       <div className="mt-10">
         <h1 className="text-3xl font-bold pb-4 text-gray-800">Collections</h1>
-        {collections.map(({ id, ...otherCollectionProps }) => (
-          <CollectionPreview key={id} {...otherCollectionProps} />
-        ))}
+        <Route exact path={`${match.path}`} component={CollectionsOverview} />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionPage}
+        />
       </div>
     </PageWrapperAnimate>
   );

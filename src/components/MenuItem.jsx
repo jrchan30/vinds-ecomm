@@ -3,8 +3,9 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => {
+  console.log(linkUrl);
   return (
-    <div onClick={() => history.push(`${match.url}${linkUrl}`)}>
+    <div onClick={() => history.push(`${linkUrl}`)}>
       <img
         src={imageUrl}
         alt={`${title} section`}

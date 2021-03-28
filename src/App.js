@@ -44,8 +44,8 @@ const App = (props) => {
     <div>
       <Header />
       <Route exact path="/" component={HeaderBanner} />
-      <div className="container mx-auto h-full px-5 md:px-20">
-        <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence exitBeforeEnter initial={false}>
+        <div className="container mx-auto h-full px-5 md:px-20">
           <Switch location={location} key={location.pathname}>
             <Route exact path="/" component={HomePage} />
             <Route path="/liquids" component={LiquidsPage} />
@@ -59,8 +59,8 @@ const App = (props) => {
               }
             />
           </Switch>
-        </AnimatePresence>
-      </div>
+        </div>
+      </AnimatePresence>
     </div>
   );
 };

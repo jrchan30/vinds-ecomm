@@ -1,35 +1,12 @@
-import React, { useState } from "react";
-import MenuItem from "./MenuItem";
+import React from "react";
 import { motion } from "framer-motion";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-const Directory = (props) => {
-  const [sections] = useState([
-    {
-      title: "Liquids",
-      imageUrl: "https://i.ibb.co/Lr8hFWT/liquids.jpg",
-      id: 1,
-      linkUrl: "liquids",
-    },
-    {
-      title: "Mods",
-      imageUrl: "https://i.ibb.co/Vx6x7Z9/mods.jpg",
-      id: 2,
-      linkUrl: "",
-    },
-    {
-      title: "RDAs",
-      imageUrl: "https://i.ibb.co/QXMcjRZ/rdas.jpg",
-      id: 3,
-      linkUrl: "",
-    },
-    {
-      title: "Batteries & chargers",
-      imageUrl: "https://i.ibb.co/Jnrkt3N/batteries.jpg",
-      id: 4,
-      linkUrl: "",
-    },
-  ]);
+import MenuItem from "./MenuItem";
+import { selectDirectorySections } from "../redux/directory/directorySelector";
 
+const Directory = ({ sections }) => {
   const renderList = () => {
     return sections.map(({ id, ...otherSectionProps }) => {
       return (
@@ -59,4 +36,8 @@ const Directory = (props) => {
   );
 };
 
-export default Directory;
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections,
+});
+
+export default connect(mapStateToProps)(Directory);
