@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import CollectionsOverview from "../../components/CollectionsOverview";
+import CollectionsOverviewContainer from "../../components/CollectionsOverviewContainer";
 import PageWrapperAnimate from "../../components/layouts/PageWrapperAnimate";
-import CollectionPage from "../collection/CollectionPage";
-import { updateCollections } from "../../redux/shop/shopActions";
-import WithSpinner from "../../components/WithSpinner";
+import CollectionPageContainer from "../collection/CollectionPageContainer";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
 
-import {
-  firestore,
-  convertCollectionSnapshotToMap,
-} from "../../firebase/firebaseUtils";
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
-
-const ShopPage = ({ match, updateCollections }) => {
-  const [loading, setLoading] = useState(true);
-
-  // let unsubscribedFromSnapshot = null;
-
+const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
   useEffect(() => {
-    const collectionRef = firestore.collection("/collections");
     // ON SNAPSHOT (LIVE RELOAD) SNIPPET
+    // const collectionRef = firestore.collection("/collections");
     // collectionRef.orderBy("title", "desc").onSnapshot(async (snapshot) => {
     //   const collectionMap = convertCollectionSnapshotToMap(snapshot);
     //   updateCollections(collectionMap);
-    //   setLoading(false);
+    //   setLoading(false)
     // });
 
     // FETCH API SNIPPET
+    // const collectionRef = firestore.collection("/collections");
     // fetch(
     //   "https://firestore.googleapis.com/v1/projects/vinds-db/databases/(default)/documents/collections"
     // )
@@ -38,15 +26,16 @@ const ShopPage = ({ match, updateCollections }) => {
     //   .then((collections) => console.log(collections));
 
     // FIREBASE GET ON MOUNT (called once when mounted)
-    collectionRef.get().then((snapshot) => {
-      const collectionsMap = convertCollectionSnapshotToMap(snapshot);
-      updateCollections(collectionsMap);
-      setLoading(false);
-    });
-    return () => {
-      setLoading(null);
-    };
-  }, [updateCollections]);
+    // const collectionRef = firestore.collection("/collections");
+    // collectionRef.get().then((snapshot) => {
+    //   const collectionsMap = convertCollectionSnapshotToMap(snapshot);
+    //   updateCollections(collectionsMap);
+    //   setLoading(false);
+    // });
+
+    // USING REDUX
+    fetchCollectionsStartAsync();
+  }, [fetchCollectionsStartAsync]);
 
   return (
     <PageWrapperAnimate>
@@ -55,15 +44,11 @@ const ShopPage = ({ match, updateCollections }) => {
         <Route
           exact
           path={`${match.path}`}
-          render={(props) => (
-            <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
-          )}
+          component={CollectionsOverviewContainer}
         />
         <Route
           path={`${match.path}/:collectionId`}
-          render={(props) => (
-            <CollectionPageWithSpinner isLoading={loading} {...props} />
-          )}
+          component={CollectionPageContainer}
         />
       </div>
     </PageWrapperAnimate>
@@ -71,10 +56,7 @@ const ShopPage = ({ match, updateCollections }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collectionsMap) =>
-    dispatch(updateCollections(collectionsMap)),
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
-
-// const mapStateToProps = {};
 
 export default connect(null, mapDispatchToProps)(ShopPage);
