@@ -7,7 +7,6 @@ const StripeButton = ({ price }) => {
   const stripePrice = price * 100;
 
   const onToken = (token) => {
-    console.log(token);
     alert("Payment successful");
   };
 

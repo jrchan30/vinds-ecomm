@@ -5,7 +5,6 @@ import CollectionItem from "../../components/CollectionItem";
 import { selectCollection } from "../../redux/shop/shopSelector";
 
 const CollectionPage = ({ collection }) => {
-  console.log(collection);
   return (
     <div>
       <h2 className="text-2xl font-semibold pb-4 text-gray-800">

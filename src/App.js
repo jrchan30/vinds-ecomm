@@ -34,6 +34,10 @@ const App = (props) => {
       } else {
         setCurrentUser(userAuth);
       }
+      // addCollectionAndDocuments(
+      //   "collections",
+      //   collectionsArray.map(({ title, items }) => ({ title, items }))
+      // );
     });
     return () => {
       unsubscribeFromAuth();
