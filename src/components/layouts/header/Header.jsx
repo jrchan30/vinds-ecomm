@@ -66,13 +66,6 @@ const Header = ({ currentUser, hidden }) => {
       >
         <nav className="container mx-auto px-20 flex justify-between items-center">
           <div className="h-10">
-            {/* <Link to="/">
-            <img
-              className="h-14 md:h-10 fill-current text-red-600"
-              src="https://see.fontimg.com/api/renderfont4/4VwY/eyJyIjoiZnMiLCJoIjoxMTksInciOjIyNTAsImZzIjo1MywiZmdjIjoiI0YzMzczNyIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/VklORFM/youth-touch-demo-regular.png"
-              alt=""
-            />
-          </Link> */}
             <Link to="/">
               <VindsLogo />
             </Link>
@@ -102,7 +95,7 @@ const Header = ({ currentUser, hidden }) => {
 
 // Automatically pass "state" as parameter to select.. function
 const mapStateToProps = createStructuredSelector({
-  currentUSer: selectCurrentUser,
+  currentUser: selectCurrentUser,
   hidden: selectCartHidden,
 });
 

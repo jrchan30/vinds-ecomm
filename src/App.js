@@ -10,61 +10,58 @@ import SignInSignUp from "./pages/sign-in-and-sign-up/SignInSignUp";
 import ShopPage from "./pages/shop/ShopPage";
 import LiquidsPage from "./pages/liquids/LiquidsPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
-import { auth, createUserProfileDocument } from "./firebase/firebaseUtils";
-import { setCurrentUser } from "./redux/user/userActions";
 import { AnimatePresence } from "framer-motion";
 import { selectCurrentUser } from "./redux/user/userSelector";
 import HeaderBanner from "./components/layouts/header/HeaderBanner";
+import Footer from "./components/layouts/footer/Footer";
 
 const App = (props) => {
   const { setCurrentUser } = props;
   const location = useLocation();
 
   useEffect(() => {
-    let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-      // addCollectionAndDocuments(
-      //   "collections",
-      //   collectionsArray.map(({ title, items }) => ({ title, items }))
-      // );
-    });
-    return () => {
-      unsubscribeFromAuth();
-    };
+    // let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
+    //     userRef.onSnapshot((snapShot) => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data(),
+    //       });
+    //     });
+    //   } else {
+    //     setCurrentUser(userAuth);
+    //   }
+    // });
+    // return () => {
+    //   unsubscribeFromAuth();
+    // };
   }, [setCurrentUser]);
 
   return (
     <div>
       <Header />
       <Route exact path="/" component={HeaderBanner} />
-      <AnimatePresence exitBeforeEnter initial={false}>
-        <div className="container mx-auto h-full px-5 md:px-20">
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/liquids" component={LiquidsPage} />
-            <Route exact path="/checkout" component={CheckoutPage} />
-            <Route path="/shop" component={ShopPage} />
-            <Route
-              exact
-              path="/signin"
-              render={() =>
-                props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
-              }
-            />
-          </Switch>
-        </div>
-      </AnimatePresence>
+      <div style={{ minHeight: "calc(100vh - 501px)" }}>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <div className="container mx-auto h-full px-5 md:px-20">
+            <Switch location={location} key={location.pathname}>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/liquids" component={LiquidsPage} />
+              <Route exact path="/checkout" component={CheckoutPage} />
+              <Route path="/shop" component={ShopPage} />
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
+                }
+              />
+            </Switch>
+          </div>
+        </AnimatePresence>
+      </div>
+      <Footer />
     </div>
   );
 };
@@ -73,8 +70,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

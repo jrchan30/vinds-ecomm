@@ -22,7 +22,7 @@ const INITIAL_STATE = {
       title: "Batteries & chargers",
       imageUrl: "https://i.ibb.co/Jnrkt3N/batteries.jpg",
       id: 4,
-      linkUrl: "shop/batterieschargers",
+      linkUrl: "shop/" + encodeURI("batteries & charger"),
     },
   ],
 };

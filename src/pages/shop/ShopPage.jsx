@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import CollectionsOverviewContainer from "../../components/CollectionsOverviewContainer";
 import PageWrapperAnimate from "../../components/layouts/PageWrapperAnimate";
 import CollectionPageContainer from "../collection/CollectionPageContainer";
-import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
+import { fetchCollectionsStart } from "../../redux/shop/shopActions";
 
-const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
     // ON SNAPSHOT (LIVE RELOAD) SNIPPET
     // const collectionRef = firestore.collection("/collections");
@@ -34,8 +34,8 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
     // });
 
     // USING REDUX
-    fetchCollectionsStartAsync();
-  }, [fetchCollectionsStartAsync]);
+    fetchCollectionsStart();
+  }, [fetchCollectionsStart]);
 
   return (
     <PageWrapperAnimate>
@@ -56,7 +56,7 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);
