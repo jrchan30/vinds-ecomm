@@ -1,42 +1,27 @@
 import { useEffect } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import "./index.css";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { AnimatePresence } from "framer-motion";
 
+import "./index.css";
 import HomePage from "./pages/homepage/HomePage";
 import Header from "./components/layouts/header/Header";
 import SignInSignUp from "./pages/sign-in-and-sign-up/SignInSignUp";
 import ShopPage from "./pages/shop/ShopPage";
 import LiquidsPage from "./pages/liquids/LiquidsPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
-import { AnimatePresence } from "framer-motion";
 import { selectCurrentUser } from "./redux/user/userSelector";
 import HeaderBanner from "./components/layouts/header/HeaderBanner";
 import Footer from "./components/layouts/footer/Footer";
+import { checkUserSession } from "./redux/user/userActions";
 
-const App = (props) => {
-  const { setCurrentUser } = props;
+const App = ({ currentUser, checkUserSession }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-    //     userRef.onSnapshot((snapShot) => {
-    //       setCurrentUser({
-    //         id: snapShot.id,
-    //         ...snapShot.data(),
-    //       });
-    //     });
-    //   } else {
-    //     setCurrentUser(userAuth);
-    //   }
-    // });
-    // return () => {
-    //   unsubscribeFromAuth();
-    // };
-  }, [setCurrentUser]);
+    checkUserSession();
+  }, [checkUserSession]);
 
   return (
     <div>
@@ -54,7 +39,7 @@ const App = (props) => {
                 exact
                 path="/signin"
                 render={() =>
-                  props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
+                  currentUser ? <Redirect to="/" /> : <SignInSignUp />
                 }
               />
             </Switch>
@@ -70,4 +55,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

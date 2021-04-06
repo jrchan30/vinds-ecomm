@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-import { auth } from "../../../firebase/firebaseUtils";
+// import { auth } from "../../../firebase/firebaseUtils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -12,6 +11,7 @@ import VindsLogo from "./VindsLogo";
 import CartDropdown from "./CartDropdown";
 import { selectCartHidden } from "../../../redux/cart/cartSelector";
 import { selectCurrentUser } from "../../../redux/user/userSelector";
+import { signOutStart } from "../../../redux/user/userActions";
 
 // #### OnScroll floating header
 // className={classnames(
@@ -23,7 +23,7 @@ import { selectCurrentUser } from "../../../redux/user/userSelector";
 //   }
 // )}
 
-const Header = ({ currentUser, hidden }) => {
+const Header = ({ currentUser, hidden, signOutStart }) => {
   const [color, setColor] = useState("text-white");
   const handleScroll = () => {
     window.pageYOffset < 90
@@ -41,9 +41,7 @@ const Header = ({ currentUser, hidden }) => {
   const renderButton = () =>
     currentUser ? (
       <button
-        onClick={() => {
-          auth.signOut();
-        }}
+        onClick={signOutStart}
         className="group transition duration-400 ease-in-out transform rounded-full  font-medium text-lg bg-red-600 text-white  hover:bg-white hover:text-black px-3 py-1"
         aria-expanded="false"
       >
@@ -99,4 +97,8 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  signOutStart: () => dispatch(signOutStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
