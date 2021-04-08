@@ -1,5 +1,6 @@
-import React from "react";
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+
 import { priceFormatDots } from "../utils/priceFormat";
 
 const StripeButton = ({ price }) => {
@@ -7,7 +8,23 @@ const StripeButton = ({ price }) => {
   const stripePrice = price * 100;
 
   const onToken = (token) => {
-    alert("Payment successful");
+    axios({
+      url: "payment",
+      method: "post",
+      data: {
+        amount: stripePrice,
+        token,
+      },
+    })
+      .then((response) => {
+        alert("Payment successful");
+      })
+      .catch((error) => {
+        console.log("Payment error: ", JSON.parse(error));
+        alert(
+          "There was an issue with your payment. Please make sure you use the provided credit card."
+        );
+      });
   };
 
   return (
